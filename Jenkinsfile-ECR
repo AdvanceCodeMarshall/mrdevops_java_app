@@ -4,9 +4,9 @@ pipeline{
     
     parameters{
         choice(name: 'action', choices: 'create\ndelete', description:'Choose Create/Destroy')
-        string(name: 'ImageName', description: "Name of the docer build", defaultValue: 'javapp')
-        string(name: 'ImageTag', description: "Tag of the docer build", defaultValue: 'v1')
-        string(name: 'DokerHubUser', description: "User Name for dockerhub user", defaultValue: 'mgmbcssantosh86')
+        string(name: 'awsAccountId', description: "AWS Account Id", defaultValue: '695150236841')
+        string(name: 'region', description: "Region", defaultValue: 'ap-south-1')
+        string(name: 'ecrRepoName', description: "ECR Repo Name", defaultValue: 'santoshtidke')
     }
 
     stages{
@@ -59,6 +59,38 @@ pipeline{
             steps{
                 script{
                     mvnBuild()
+                }
+            }
+        }
+        stage('Docker Image Build : ECR'){
+            when { expression { params.action == 'create' } }
+            steps{
+                script{
+                    dockerBuild("${params.awsAccountId}","${params.region}","${params.ecrRepoName}")
+                }
+            }
+        }
+        stage('Docker Image Scan: Trivy'){
+            when { expression { params.action == 'create' } }
+            steps{
+                script{
+                    dockerImageScan("${params.awsAccountId}","${params.region}","${params.ecrRepoName}")
+                }
+            }
+        }
+        stage('Docker Image Push: ECR'){
+            when { expression { params.action == 'create' } }
+            steps{
+                script{
+                    dockerImagePush("${params.awsAccountId}","${params.region}","${params.ecrRepoName}")
+                }
+            }
+        }
+        stage('Docker Image Cleanup: ECR'){
+            when { expression { params.action == 'create' } }
+            steps{
+                script{
+                    dockerImageCleanup("${params.awsAccountId}","${params.region}","${params.ecrRepoName}")
                 }
             }
         }
