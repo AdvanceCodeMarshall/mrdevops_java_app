@@ -86,13 +86,13 @@ pipeline{
                 }
             }
         }
-        stage('Docker Image Cleanup: Docker hub'){
-            when { expression { params.action == 'create' } }
-            steps{
-                script{
-                    dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.DokerHubUser}")
-                }
-            }
-        }
+        // stage('Docker Image Cleanup: Docker hub'){
+        //     when { expression { params.action == 'create' } }
+        //     steps{
+        //         script{
+        //             dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.DokerHubUser}")
+        //         }
+        //     }
+        // }
     }
 }
