@@ -1,9 +1,9 @@
 #PROVIDER
 variable "aws_access_key" {
-    default = "AKIAVODV2KNTHHVSGBPJ"
+    
 }
 variable "aws_secret_key" {
-    default = "Cs3XDQ0+1+GAWb9r5KExjOYFyjZ1ZAKYgPB9JNgE"
+    
 }
 
 variable "aws_region_nvirginia" {
