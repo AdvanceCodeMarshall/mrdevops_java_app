@@ -46,7 +46,6 @@ resource "aws_iam_role" "devops_eks_cluster_iam_role" {
       Principal = {
         Service = "ec2.amazonaws.com"
       }
-      Resource = "arn:aws:iam::373909246822:user/aws-user"
     }]
     Version = "2012-10-17"
   })
