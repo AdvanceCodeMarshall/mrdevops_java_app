@@ -64,16 +64,12 @@ resource "aws_iam_role" "devops_eks_node_group_iam_role" {
   # The policy that grants an entity permission to assume the role.
    assume_role_policy = jsonencode({
     Statement = [{
-      "Action": [
-                "iam:AttachRolePolicy",
-                "iam:CreateRole",
-                "iam:CreatePolicy",
-                "iam:PutRolePolicy"
-            ],
+      Action = "sts:AssumeRole"
       Effect = "Allow"
       Principal = {
         Service = "ec2.amazonaws.com"
       }
+      Resource = "arn:aws:iam::373909246822:user/aws-user"
     }]
     Version = "2012-10-17"
   })
