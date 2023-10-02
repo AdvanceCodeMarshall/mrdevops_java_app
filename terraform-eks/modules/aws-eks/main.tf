@@ -41,7 +41,12 @@ resource "aws_iam_role" "devops_eks_cluster_iam_role" {
     # The role that Amazon EKS will use to create AWS resources for Kubernetes clusters
   assume_role_policy = jsonencode({
     Statement = [{
-      Action = "sts:AssumeRole"
+      "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:CreatePolicy",
+                "iam:PutRolePolicy"
+            ],
       Effect = "Allow"
       Principal = {
         Service = "ec2.amazonaws.com"
