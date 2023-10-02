@@ -1,13 +1,13 @@
 #PROVIDER
-variable "aws_access_key" {
+variable "access_key" {
     
 }
-variable "aws_secret_key" {
+variable "secret_key" {
     
 }
 
-variable "aws_region_nvirginia" {
-    default = "us-east-1"
+variable "region" {
+    
 }
 
 variable "devops_aws_eks_cluster_config" {
